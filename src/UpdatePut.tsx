@@ -1,14 +1,15 @@
-import { CContainer, CFormInput, CFormSelect, CButton, CModal, CModalBody, CModalFooter } from "@coreui/react";
+import { CContainer, CFormInput, CFormSelect, CButton } from "@coreui/react";
 import { useState } from "react";
+import SharedModal from "./sharedComponents/sharedModal";
 
 
 const UpdatePut = () => {
 
     const [id, setId] = useState<number | undefined>(undefined);
-    const [optionSelect, setOptionSelect] = useState<string | undefined>(undefined);
-    const [inputValue, setInputValue] = useState<string | undefined>(undefined);
     const [visible, setVisible] = useState<boolean>(false);
     const [createMSG, setCreateMSG] = useState<string>("");
+    const [inputValue, setInputValue] = useState<string | undefined>(undefined);
+    const [optionSelect, setOptionSelect] = useState<string | undefined>(undefined);
 
     const props = [
         "Select Propertie Update",
@@ -49,7 +50,6 @@ const UpdatePut = () => {
                 console.log(response)
                 setVisible(true);
                 setCreateMSG(JSON.stringify(response));
-                return response;
             }
         }
         else {
@@ -69,20 +69,14 @@ const UpdatePut = () => {
         setInputValue(e.target.value);
     }
 
+    const handleSetVisible = () => {
+        setVisible(!visible);
+    }
+
     return (
         <CContainer fluid className="d-flex">
             {
-                visible && <CModal visible={visible} alignment="center" onClose={() => setVisible(false)}>
-                    <CModalBody>
-                        {createMSG}
-                    </CModalBody>
-                    <CModalFooter>
-                        <CButton color="secondary" onClick={() => setVisible(false)}>
-                            Close
-                        </CButton>
-                    </CModalFooter>
-                </CModal>
-
+                visible && <SharedModal msg={createMSG} visible={visible} setVisible={handleSetVisible} />                
             }
             <CFormInput type="number" placeholder="Enter Id" value={id ?? ""} onChange={handleInputId} />
             <CFormSelect options={props} value={optionSelect ?? ""} onChange={handleChangeSelect} />

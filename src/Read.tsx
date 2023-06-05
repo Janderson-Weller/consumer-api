@@ -1,34 +1,19 @@
 import { useState } from "react";
 import { CButton, CFormInput, CFormCheck, CFormSelect, CContainer, CFormLabel, CRow, CTable, CTableHead, CTableHeaderCell, CTableRow, CTableBody, CTableDataCell } from "@coreui/react";
+import SharedModal from "./sharedComponents/sharedModal";
 
 const Read = () => {
 
     const [id, setId] = useState<number | undefined>(undefined);
     const [data, setData] = useState<any[] | null>(null);
+    const [visible, setVisible] = useState<boolean>(false);
     const [checkId, setCheckId] = useState<boolean>(false);
+    const [createMSG, setCreateMSG] = useState<string>("");
     const [optionSelect, setOptionSelect] = useState<string | undefined>(undefined);
     const [checkCategory, setCheckCategory] = useState<boolean>(false);
     const [searchProduct, setSearchProduct] = useState<string | undefined>(undefined);
     const [checkAllProducts, setCheckAllProducts] = useState<boolean>(false);
     const [checkSearchProduct, setCheckSearchProduct] = useState<boolean>(false);
-
-    const getData = async (info: string | number) => {
-        const fetchGet = await fetch(`https://dummyjson.com/products/${info}`);
-
-        if (!fetchGet.ok) {
-            throw new Error("Error: " + fetchGet.status);
-        }
-
-        const response = await fetchGet.json();
-
-        if (!response) {
-            throw new Error("No data returned from API");
-        }
-        else {
-            setData([response]);
-            setId(undefined);
-        }
-    }
 
     const category = [
         "Select Category",
@@ -54,22 +39,26 @@ const Read = () => {
         "lighting"
     ];
 
-    const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setId(+e.target.value);
-        setOptionSelect(undefined);
-        setSearchProduct(undefined);
-    }
+    const getData = async (info: string | number) => {
+        const fetchGet = await fetch(`https://dummyjson.com/products/${info}`);
 
-    const handleOptionSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setOptionSelect(e.target.value);
-        setId(undefined);
-        setSearchProduct(undefined);
-    }
+        if (!fetchGet.ok) {
+            setData(null);
+            setVisible(true);
+            setCreateMSG(`Error: ${fetchGet.status}`);
+            throw new Error("Error: " + fetchGet.status);
+        }
 
-    const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchProduct(e.target.value);
-        setOptionSelect(undefined);
-        setId(undefined);
+        const response = await fetchGet.json();
+
+        if (!response) {
+            setCreateMSG("No data returned from API");
+            throw new Error("No data returned from API");
+        }
+        else {
+            setData([response]);
+            setId(undefined);
+        }
     }
 
     const handleGetProduct = () => {
@@ -87,6 +76,24 @@ const Read = () => {
         }
         else
             alert("Enter a value");
+    }
+
+    const handleOption = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setId(+e.target.value);
+        setOptionSelect(undefined);
+        setSearchProduct(undefined);
+    }
+
+    const handleOptionSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setOptionSelect(e.target.value);
+        setId(undefined);
+        setSearchProduct(undefined);
+    }
+
+    const handleSearchProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchProduct(e.target.value);
+        setOptionSelect(undefined);
+        setId(undefined);
     }
 
     const handleCheckId = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,6 +122,10 @@ const Read = () => {
         setCheckAllProducts(false);
         setCheckCategory(false);
         setCheckId(false);
+    }
+
+    const handleSetVisible = () => {
+        setVisible(!visible);
     }
 
     let tableRender: any[] = [];
@@ -150,6 +161,9 @@ const Read = () => {
                 }
             </CContainer>
             <CButton type="button" onClick={handleGetProduct} >Search Product</CButton>
+            {
+                visible && <SharedModal msg={createMSG} visible={visible} setVisible={handleSetVisible} />
+            }
             {
                 data && <CTable className="mt-5">
                     <CTableHead>

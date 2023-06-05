@@ -1,5 +1,6 @@
-import { CButton, CContainer, CFormInput, CModal, CModalBody, CModalFooter } from "@coreui/react";
+import { CButton, CContainer, CFormInput } from "@coreui/react";
 import { useState } from "react";
+import SharedModal from "./sharedComponents/sharedModal";
 
 interface Product {
     title?: string;
@@ -39,7 +40,6 @@ const Create = () => {
             setVisible(true);
             setCreateMSG(JSON.stringify(response));
             setProduct(null);
-            return response;
         }
     }
 
@@ -63,20 +63,14 @@ const Create = () => {
         setProduct({ ...product, color: value });
     }
 
+    const handleSetVisible = () => {
+        setVisible(!visible);
+    }
+
     return (
         <CContainer className="d-grid gap-2">
             {
-                visible && <CModal visible={visible} alignment="center" onClose={() => setVisible(false)}>
-                    <CModalBody>
-                        {createMSG}
-                    </CModalBody>
-                    <CModalFooter>
-                        <CButton color="secondary" onClick={() => setVisible(false)}>
-                            Close
-                        </CButton>
-                    </CModalFooter>
-                </CModal>
-
+                visible && <SharedModal msg={createMSG} visible={visible} setVisible={handleSetVisible} />
             }
             <CFormInput type="text" value={product?.title ?? ""} placeholder="added name product" onChange={handleChangeTitle} />
             <CFormInput type="text" value={product?.category ?? ""} placeholder="added category" onChange={handleChangeCategory} />

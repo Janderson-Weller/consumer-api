@@ -3,6 +3,7 @@ import { useState } from "react";
 import Create from "./Create";
 import Read from "./Read";
 import UpdatePut from "./UpdatePut";
+import Delete from "./Delete";
 
 const InitialPage = () => {
 
@@ -61,6 +62,7 @@ const InitialPage = () => {
                         <UpdatePut />
                     </CTabPane>
                     <CTabPane role="tabpanel" aria-labelledby="contact-tab" visible={activeKey === 4}>
+                    <Delete />
                     </CTabPane>
                 </CTabContent>
             </CRow>
