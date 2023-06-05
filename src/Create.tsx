@@ -11,7 +11,7 @@ interface Product {
 
 const Create = () => {
 
-    const [createMSG, setCreateMSG] = useState<string>("");
+    const [createMSG, setCreateMSG] = useState<string | undefined>(undefined);
     const [product, setProduct] = useState<Product | null>(null);
     const [visible, setVisible] = useState<boolean>(false);
 

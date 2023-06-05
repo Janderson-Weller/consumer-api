@@ -1,5 +1,6 @@
-import { CButton, CContainer, CFormInput, CModal, CModalBody, CModalFooter } from "@coreui/react";
+import { CButton, CContainer, CFormInput } from "@coreui/react";
 import { useState } from "react";
+import SharedModal from "./sharedComponents/sharedModal";
 
 const Delete = () => {
 
@@ -38,19 +39,14 @@ const Delete = () => {
         setId(+e.target.value);
     }
 
+    const handleSetVisible = () => {
+        setVisible(!visible);
+    }
+
     return (
         <CContainer fluid className="d-flex">
             {
-                visible && <CModal visible={visible} alignment="center" onClose={() => setVisible(false)}>
-                    <CModalBody>
-                        {createMSG}
-                    </CModalBody>
-                    <CModalFooter>
-                        <CButton color="secondary" onClick={() => setVisible(false)}>
-                            Close
-                        </CButton>
-                    </CModalFooter>
-                </CModal>
+                visible && <SharedModal msg={createMSG} visible={visible} setVisible={handleSetVisible} />                
             }
             <CFormInput type="number" placeholder="Enter Id" value={id ?? ""} onChange={handleInputId} />        
             <CButton type="button" onClick={handleDelete}>Delete</CButton>

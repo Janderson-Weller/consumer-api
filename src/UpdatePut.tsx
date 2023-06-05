@@ -7,7 +7,7 @@ const UpdatePut = () => {
 
     const [id, setId] = useState<number | undefined>(undefined);
     const [visible, setVisible] = useState<boolean>(false);
-    const [createMSG, setCreateMSG] = useState<string>("");
+    const [createMSG, setCreateMSG] = useState<string | undefined>(undefined);
     const [inputValue, setInputValue] = useState<string | undefined>(undefined);
     const [optionSelect, setOptionSelect] = useState<string | undefined>(undefined);
 

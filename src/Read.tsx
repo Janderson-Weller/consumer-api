@@ -8,7 +8,7 @@ const Read = () => {
     const [data, setData] = useState<any[] | null>(null);
     const [visible, setVisible] = useState<boolean>(false);
     const [checkId, setCheckId] = useState<boolean>(false);
-    const [createMSG, setCreateMSG] = useState<string>("");
+    const [createMSG, setCreateMSG] = useState<string |undefined>(undefined);
     const [optionSelect, setOptionSelect] = useState<string | undefined>(undefined);
     const [checkCategory, setCheckCategory] = useState<boolean>(false);
     const [searchProduct, setSearchProduct] = useState<string | undefined>(undefined);
