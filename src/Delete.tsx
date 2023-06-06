@@ -1,6 +1,6 @@
 import { CButton, CContainer, CFormInput } from "@coreui/react";
 import { useState } from "react";
-import SharedModal from "./sharedComponents/sharedModal";
+import SharedModal from "./sharedComponents/SharedModal";
 
 const Delete = () => {
 
@@ -25,6 +25,7 @@ const Delete = () => {
             throw new Error("No product deleted");
         }
         else {
+            console.log(response)
             setVisible(true);
             if(response.isDeleted) {
                 setCreateMSG(JSON.stringify(response))

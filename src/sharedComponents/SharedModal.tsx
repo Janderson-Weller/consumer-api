@@ -1,5 +1,6 @@
 import { CButton, CModal, CModalBody, CModalFooter } from "@coreui/react";
 
+
 interface propsModal {
     msg: string | undefined;
     visible: boolean;

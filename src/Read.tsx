@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { CButton, CFormInput, CFormCheck, CFormSelect, CContainer, CFormLabel, CRow, CTable, CTableHead, CTableHeaderCell, CTableRow, CTableBody, CTableDataCell } from "@coreui/react";
-import SharedModal from "./sharedComponents/sharedModal";
+import SharedModal from "./sharedComponents/SharedModal";
 
 const Read = () => {
 

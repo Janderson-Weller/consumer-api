@@ -1,6 +1,6 @@
 import { CContainer, CFormInput, CFormSelect, CButton } from "@coreui/react";
 import { useState } from "react";
-import SharedModal from "./sharedComponents/sharedModal";
+import SharedModal from "./sharedComponents/SharedModal";
 
 
 const UpdatePut = () => {
@@ -28,7 +28,7 @@ const UpdatePut = () => {
             }
 
             const update = await fetch(`https://dummyjson.com/products/${id}`, {
-                method: /* 'PUT', */ 'PATCH',
+                method: 'PUT', /* 'PATCH' ,*/
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(obj)
             })

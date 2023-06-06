@@ -1,6 +1,6 @@
 import { CButton, CContainer, CFormInput } from "@coreui/react";
 import { useState } from "react";
-import SharedModal from "./sharedComponents/sharedModal";
+import SharedModal from "./sharedComponents/SharedModal";
 
 interface Product {
     title?: string;
